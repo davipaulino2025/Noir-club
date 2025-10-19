@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Noir Club SP — Exclusividade & Reserva</title>
+  <style>
+    :root{--wine:#4b0f15;--silver:#cfcfcf;--bg:#100708}
+    body{margin:0;font-family:Inter,Segoe UI,Roboto,Arial,sans-serif;background:linear-gradient(180deg,var(--wine),#3b0a0f);color:var(--silver)}
+    header{display:flex;align-items:center;justify-content:space-between;padding:22px 36px;background:rgba(0,0,0,0.25);backdrop-filter:blur(4px)}
+    .logo{display:flex;align-items:center;gap:14px}
+    .logo img{height:58px}
+    nav a{color:var(--silver);text-decoration:none;margin-left:18px;font-weight:600}
+    .hero{padding:48px 36px;text-align:center}
+    .hero h1{font-size:48px;margin:6px 0 12px}
+    .hero p{max-width:760px;margin:0 auto 18px;opacity:0.95}
+    .btn{display:inline-block;padding:12px 20px;border-radius:8px;background:transparent;border:1px solid var(--silver);color:var(--silver);text-decoration:none;font-weight:700}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px;padding:28px 36px}
+    .card{background:linear-gradient(180deg,rgba(255,255,255,0.03),rgba(0,0,0,0.12));padding:14px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,0.45)}
+    .card img{width:100%;height:200px;object-fit:cover;border-radius:8px}
+    .card h3{margin:10px 0 6px}
+    .card p{margin:0;opacity:0.9}
+    footer{padding:28px 36px;text-align:center;opacity:0.9;font-size:13px;line-height:1.6}
+    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:linear-gradient(0deg,rgba(0,0,0,0.6),rgba(0,0,0,0.6));}
+    .modal .box{background:#1a0f11;padding:22px;border-radius:12px;min-width:320px;max-width:420px}
+    label{display:block;font-size:13px;margin-top:8px}
+    input[type=text],input[type=password],input[type=email]{width:100%;padding:10px;margin-top:6px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:var(--silver)}
+    .plans{display:flex;gap:12px;flex-wrap:wrap}
+    .plan{flex:1;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(0,0,0,0.08));padding:18px;border-radius:10px;text-align:center}
+    .plan h4{margin:0}
+    .note{font-size:13px;color:rgba(255,255,255,0.7)}
+    @media(max-width:720px){.hero h1{font-size:32px}.logo img{height:44px}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="assets/logo.png" alt="Noir Club SP logo">
+      <div>
+        <strong>Noir Club SP</strong>
+        <div style="font-size:12px;opacity:0.85">Luxo | Exclusividade | Discrição</div>
+      </div>
+    </div>
+    <nav>
+      <a href="#home" onclick="navigate('#home')">Home</a>
+      <a href="#perfis" onclick="navigate('#perfis')">Perfis</a>
+      <a href="#planos" onclick="navigate('#planos')">Planos</a>
+      <a href="#contato" onclick="navigate('#contato')">Contato</a>
+      <a href="#login" class="btn" onclick="openModal('loginModal')">Entrar / Cadastre-se</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="home" class="hero">
+      <h1>Noir Club SP</h1>
+      <p>Bem-vindo ao Noir Club SP — uma plataforma de agendamento de acompanhantes de alto padrão em São Paulo. O acesso às fotos e perfis detalhados é restrito a membros cadastrados e com plano ativo. Todos os perfis aqui representados são maiores de 18 anos.</p>
+      <a class="btn" onclick="navigate('#planos')">Veja os planos</a>
+    </section>
+
+    <section id="perfis" style="display:none">
+      <div style="padding:12px 36px">
+        <h2 style="color:var(--silver)">Perfis</h2>
+        <p class="note">As imagens exibidas são exemplos ilustrativos. Perfis completos são visíveis apenas após login e confirmação de assinatura ativa.</p>
+      </div>
+      <div class="grid" id="galleryGrid"></div>
+    </section>
+
+    <section id="planos" style="display:none;padding-bottom:30px">
+      <div style="padding:12px 36px">
+        <h2>Planos de Assinatura</h2>
+        <p class="note">Após realizar cadastro com e-mail e senha e efetuar pagamento via PixUp (integração demonstrativa), o usuário receberá acesso aos perfis. Não são exibidos valores individuais de acompanhantes. O Noir Club SP atua exclusivamente como plataforma de intermediação e publicidade.</p>
+      </div>
+      <div style="padding:0 36px" class="plans">
+        <div class="plan">
+          <h4>Premium — 1 mês</h4>
+          <p style="font-size:20px;font-weight:800">R$ 1.500,00</p>
+          <p class="note">Acesso completo por 30 dias</p>
+          <button class="btn" onclick="startCheckout('premium')">Assinar</button>
+        </div>
+        <div class="plan">
+          <h4>Trimestral — 3 meses</h4>
+          <p style="font-size:20px;font-weight:800">R$ 1.000,00 / mês</p>
+          <p class="note">Pagamento recorrente durante 3 meses</p>
+          <button class="btn" onclick="startCheckout('trimestral')">Assinar</button>
+        </div>
+        <div class="plan">
+          <h4>Básico — 1 mês (Promo)</h4>
+          <p style="font-size:20px;font-weight:800">R$ 500,00</p>
+          <p class="note">Acesso limitado — 30 dias</p>
+          <button class="btn" onclick="startCheckout('basico')">Assinar</button>
+        </div>
+      </div>
+      <div style="padding:18px 36px">
+        <p class="note">Integração demonstrativa com PixUp. O processamento real de pagamentos requer credenciamento comercial e configuração de API segura junto à plataforma PixUp.</p>
+      </div>
+    </section>
+
+    <section id="contato" style="display:none;padding:18px 36px">
+      <h2>Contato</h2>
+      <p class="note">E-mail: <strong>contato@noirclubsp.example</strong> | Parcerias: <strong>comercial@noirclubsp.example</strong></p>
+    </section>
+  </main>
+
+  <footer>
+    <small>
+      © Noir Club SP — 2025. Todos os direitos reservados.<br>
+      O Noir Club SP é uma plataforma de publicidade e agendamento para acompanhantes independentes maiores de 18 anos. O site não fornece, promove ou facilita serviços de natureza sexual explícita. As fotos e descrições têm caráter meramente ilustrativo e informativo.<br>
+      Termos de uso, política de privacidade e conformidade estão disponíveis mediante solicitação.
+    </small>
+  </footer>
+
+  <div id="loginModal" class="modal">
+    <div class="box">
+      <h3>Entrar / Cadastrar</h3>
+      <div style="margin-top:8px">
+        <label>E-mail</label>
+        <input id="email" type="email" placeholder="seu@exemplo.com">
+        <label>Senha</label>
+        <input id="password" type="password" placeholder="senha">
+        <div style="display:flex;gap:8px;margin-top:12px;justify-content:flex-end">
+          <button class="btn" onclick="closeModal('loginModal')">Fechar</button>
+          <button class="btn" onclick="auth()">Criar conta / Entrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function navigate(hash){document.querySelectorAll('main section').forEach(s=>s.style.display='none');const el=document.querySelector(hash);if(el) el.style.display='block';window.location.hash=hash;if(hash==='#perfis') loadGallery();}
+    if(location.hash) navigate(location.hash); else navigate('#home');
+    function openModal(id){document.getElementById(id).style.display='flex'}
+    function closeModal(id){document.getElementById(id).style.display='none'}
+    const sampleImages=['assets/img1.jpg','assets/img2.jpg','assets/img3.jpg'];
+    function loadGallery(){const grid=document.getElementById('galleryGrid');if(grid.children.length) return;sampleImages.forEach((src,i)=>{const c=document.createElement('div');c.className='card';const img=document.createElement('img');img.src=src;img.alt='perfil '+(i+1);const h=document.createElement('h3');h.textContent='Perfil '+(i+1);const p=document.createElement('p');p.textContent='Descrição ilustrativa. Perfis completos visíveis após login e pagamento.';c.append(img,h,p);grid.append(c);})}
+    function auth(){const e=document.getElementById('email').value;const p=document.getElementById('password').value;if(!e||!p){alert('Informe e-mail e senha.');return}localStorage.setItem('noir_user',JSON.stringify({email:e,paid:false}));closeModal('loginModal');alert('Conta criada. Agora escolha um plano.');}
+    function startCheckout(plan){const user=JSON.parse(localStorage.getItem('noir_user')||'null');if(!user){openModal('loginModal');return}const order={plan:plan,amount: plan==='premium'?1500:(plan==='trimestral'?3000:500),currency:'BRL'};if(confirm('Iniciar pagamento (simulação)?')){user.paid=true;localStorage.setItem('noir_user',JSON.stringify(user));alert('Pagamento concluído (simulado). Perfis liberados.');navigate('#perfis');}}
+  </script>
+</body>
+</html>
